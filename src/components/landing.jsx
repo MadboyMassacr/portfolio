@@ -316,14 +316,17 @@ export default function Landing() {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-900">
             <div className="px-4 pt-4 pb-4 space-y-2">
-              {['home', 'about', 'projects', 'contact'].map((section) => (
+              {['home', 'about', 'stack', 'experience', 'projects', 'contact'].map((section) => (
                 <a
                   key={section}
                   href={`#${section}`}
                   className={`block px-4 py-3 rounded-md text-lg font-medium capitalize ${
                     activeSection === section ? 'text-green-300 bg-gray-800' : 'text-green-400 hover:bg-gray-800'
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setActiveSection(section);
+                  }}
                 >
                   {section}
                 </a>
@@ -334,10 +337,10 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-32 pb-20 px-12 w-full">
-        <div className="flex flex-col md:flex-row items-center gap-16">
-          <div className="md:w-1/2 space-y-10">
-            <h1 className="text-5xl md:text-6xl font-bold"><Typewriter
+      <section id="home" className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-12 w-full">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+          <div className="w-full md:w-1/2 space-y-6 md:space-y-10">
+            <h1 className="text-4xl md:text-6xl font-bold"><Typewriter
         words={["Hi, I'm Maneesh"]}
         cursor
         typeSpeed={60}
@@ -364,7 +367,7 @@ export default function Landing() {
               I'm a frontend engineer who loves bringing UI/UX to life with clean, scalable code. While frontend is my craft, I'm also curious about infrastructure automation (DevOps) and the possibilities of machine learning.
             </p>
 
-            <div className="flex gap-6 mt-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <a href="https://drive.google.com/file/d/1BqdqXetKzlRLUrNBdJ--SxaPDoHpnawD/view?usp=sharing" target="_blank" className="px-6 py-3 bg-green-900 hover:bg-green-800 rounded text-green-100 text-lg transition">
                 My Resume
               </a>
@@ -375,11 +378,11 @@ export default function Landing() {
           </div>
 
           {/* Terminal Box in Introduction */}
-          <div className="md:w-1/2 w-full">
-            <div className="relative inline-block w-full">
+          <div className="w-full md:w-1/2 mt-8 md:mt-0">
+            <div className="relative w-full">
               <pre
                 ref={terminalRef}
-                className="bg-gray-900 p-10 rounded shadow-lg text-base mb-4 min-h-[350px] h-[550px] overflow-y-auto"
+                className="bg-gray-900 p-4 md:p-10 rounded shadow-lg text-sm md:text-base mb-4 min-h-[300px] md:min-h-[350px] h-[400px] md:h-[550px] overflow-y-auto"
               >
                 {terminalOutput.map((line, index) => (
                   <span
@@ -447,38 +450,72 @@ export default function Landing() {
       </section>
 
       {/* About Section */}
-      <motion.section id="about" className="py-20 px-12 w-full"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <h2 className="text-4xl font-bold mb-6 border-b border-green-700 pb-3">About Me</h2>
-        <div className="grid md:grid-cols-2 gap-16 mt-8">
-          <div>
-            <pre className="bg-gray-900 p-8 rounded shadow text-green-300 text-lg overflow-x-auto">
-              {`# Education:
-              Pursuing BTech and MS in Computer Science @ IIIT Hyderabad
+      <section id="about" className="py-12 md:py-20 px-4 md:px-12 w-full">
+        {/* Remove motion wrapper and add animation only for desktop */}
+        <div className="hidden md:block">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 border-b border-green-700 pb-3">About Me</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mt-8">
+              <div>
+                <pre className="bg-gray-900 p-8 rounded shadow text-green-300 text-lg overflow-x-auto">
+                  {`# Education:
+                  Pursuing BTech and MS in Computer Science @ IIIT Hyderabad
+  
+                  # Skills:
+                  Full Stack Dev | DevOps on AWS | ML | Product Management
+  
+                  # Languages:
+                  Python | JavaScript | C | C++ | Bash | SQL`}
+                </pre>
+              </div>
+              <div className="space-y-6 text-xl">
+                <p>
+                  I'm a fourth-year CS dual degree student passionate about building robust frontend applications,
+                  automations on AWS, and experimenting with machine learning models.
+                </p>
+                <p>I have worked with multiple companies and clients to deliver websites and automations.</p>
+                <p>
+                  Currently working on a research in the field of Cognitive Neuroscience. I am trying to use computer vision and ML on fMRI data to find healthy aging markers in Indian population. This can help detect neurodegenerative diseases like Alzheimer's at an early stage.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* Mobile version without animations */}
+        <div className="md:hidden">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 border-b border-green-700 pb-3">About Me</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mt-8">
+            <div>
+              <pre className="bg-gray-900 p-8 rounded shadow text-green-300 text-lg overflow-x-auto">
+                {`# Education:
+                Pursuing BTech and MS in Computer Science @ IIIT Hyderabad
 
-              # Skills:
-              Full Stack Dev | DevOps on AWS | ML | Product Management
+                # Skills:
+                Full Stack Dev | DevOps on AWS | ML | Product Management
 
-              # Languages:
-              Python | JavaScript | C | C++ | Bash | SQL`}
-            </pre>
-          </div>
-          <div className="space-y-6 text-xl">
-            <p>
-              I'm a fourth-year CS dual degree student passionate about building robust frontend applications,
-              automations on AWS, and experimenting with machine learning models.
-            </p>
-            <p>I have worked with multiple companies and clients to deliver websites and automations.</p>
-            <p>
-              Currently working on a research in the field of Cognitive Neuroscience. I am trying to use computer vision and ML on fMRI data to find healthy aging markers in Indian population. This can help detect neurodegenerative diseases like Alzheimer's at an early stage.
-            </p>
+                # Languages:
+                Python | JavaScript | C | C++ | Bash | SQL`}
+              </pre>
+            </div>
+            <div className="space-y-6 text-xl">
+              <p>
+                I'm a fourth-year CS dual degree student passionate about building robust frontend applications,
+                automations on AWS, and experimenting with machine learning models.
+              </p>
+              <p>I have worked with multiple companies and clients to deliver websites and automations.</p>
+              <p>
+                Currently working on a research in the field of Cognitive Neuroscience. I am trying to use computer vision and ML on fMRI data to find healthy aging markers in Indian population. This can help detect neurodegenerative diseases like Alzheimer's at an early stage.
+              </p>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Tech Stack Section */}
       <motion.section id="stack" className="py-20 px-12 w-full"
@@ -538,10 +575,10 @@ export default function Landing() {
               <div className="absolute left-0 top-1.5 w-3 h-3 bg-green-400 rounded-full group-hover:scale-110 transition-transform" />
               <div className="ml-4">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
-                  <h3 className="text-2xl font-semibold text-white">
-                    {exp.title} <span className="text-gray-400">@ {exp.company}</span>
+                  <h3 className="text-xl md:text-2xl font-semibold text-white">
+                    {exp.title} <span className="block sm:inline text-gray-400">@ {exp.company}</span>
                   </h3>
-                  <span className="text-xl text-gray-500">{exp.date}</span>
+                  <span className="text-lg md:text-xl text-gray-500">{exp.date}</span>
                 </div>
                 <ul className="list-disc list-inside text-gray-400 text-xl mt-2 space-y-1">
                   {exp.points.map((point, idx) => (
@@ -578,16 +615,18 @@ export default function Landing() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <h2 className="text-4xl font-bold mb-6 border-b border-green-700 pb-3">Projects</h2>
-        <div className="grid md:grid-cols-2 gap-10 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mt-8">
           {projects.map((project, index) => (
-            <motion.div key={index} className="bg-gray-900 rounded shadow hover:shadow-green-900/30 transition p-6" 
+            <motion.div 
+              key={index} 
+              className="bg-gray-900 rounded shadow hover:shadow-green-900/30 transition p-4 md:p-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
-              <p className="mb-4 text-lg">{project.description}</p>
+              <h3 className="text-xl md:text-2xl font-semibold mb-3">{project.title}</h3>
+              <p className="mb-4 text-base md:text-lg">{project.description}</p>
               <div className="flex flex-wrap gap-3 mb-5">
                 {project.tags.map((tag, i) => (
                   <span key={i} className="text-sm px-3 py-1 bg-green-900 text-green-100 rounded">
@@ -611,37 +650,29 @@ export default function Landing() {
 
 
       {/* Contact Section */}
-      <motion.section id="contact" className="py-20 px-12 w-full"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <h2 className="text-4xl font-bold mb-6 border-b border-green-700 pb-3">Contact</h2>
-        <div className="mt-10 grid md:grid-cols-3 gap-12 items-center">
-          {/* Wider Contact Block */}
-          <div className="md:col-span-2">
-            <pre className="bg-gray-900 p-8 rounded text-green-300 text-lg overflow-x-auto">
-      {`$ contact me:
-      Email: maneeshmanoj2004@gmail.com
-      Location: Hyderabad, India
+      <motion.section id="contact" className="py-12 md:py-20 px-4 md:px-12 w-full">
+  <h2 className="text-3xl md:text-4xl font-bold mb-6 border-b border-green-700 pb-3">Contact</h2>
+  <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
+    <div className="md:col-span-2">
+      <pre className="bg-gray-900 p-4 md:p-8 rounded text-sm md:text-lg overflow-x-auto">
+        {`$ contact me:
+        Email: maneeshmanoj2004@gmail.com
+        Location: Hyderabad, India
 
-      # Social:
-      GitHub   → https://github.com/MadboyMassacr
-      LinkedIn → https://www.linkedin.com/in/maneesh-manoj`}
-            </pre>
-          </div>
-
-          {/* Centered Image */}
-          <div className="flex justify-center">
-            <img
-              src="/maneesh.jpg"
-              alt="Maneesh Manoj"
-              className="rounded-lg max-h-90 object-cover shadow-lg"
-            />
-          </div>
-        </div>
-      </motion.section>
+        # Social:
+        GitHub   → https://github.com/MadboyMassacr
+        LinkedIn → https://www.linkedin.com/in/maneesh-manoj`}
+      </pre>
+    </div>
+    <div className="flex justify-center">
+      <img
+        src="/maneesh.jpg"
+        alt="Maneesh Manoj"
+        className="rounded-lg w-full max-w-[250px] md:max-w-none object-cover shadow-lg"
+      />
+    </div>
+  </div>
+</motion.section>
 
 
       {/* Footer */}
